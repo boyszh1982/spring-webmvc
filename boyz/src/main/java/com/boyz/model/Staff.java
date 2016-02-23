@@ -10,11 +10,11 @@ public class Staff {
 
     private String lastName;
 
-    private Short addressId;
+    private String addressId;
 
     private String email;
 
-    private Byte storeId;
+    private String storeId;
 
     private Boolean active;
 
@@ -50,11 +50,11 @@ public class Staff {
         this.lastName = lastName == null ? null : lastName.trim();
     }
 
-    public Short getAddressId() {
+    public String getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(Short addressId) {
+    public void setAddressId(String addressId) {
         this.addressId = addressId;
     }
 
@@ -66,11 +66,11 @@ public class Staff {
         this.email = email == null ? null : email.trim();
     }
 
-    public Byte getStoreId() {
+    public String getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(Byte storeId) {
+    public void setStoreId(String storeId) {
         this.storeId = storeId;
     }
 

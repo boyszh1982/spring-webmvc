@@ -1,7 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <body>
-<h2>Login Success</h2>
-${staff.staffId }
+${staff.username } <br/>
+${staff.firstName } <br/>
+${staff.lastName } <br/>
+${staff.password } <br/>
+${staff.lastUpdate } <br/>
 </body>
 </html>
