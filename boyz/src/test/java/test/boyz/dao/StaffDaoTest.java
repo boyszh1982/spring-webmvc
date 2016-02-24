@@ -19,12 +19,20 @@ public class StaffDaoTest {
 	private static final Logger logger = Logger.getLogger(StaffDaoTest.class);
 	
 	@Autowired
+	@Qualifier("staffDaoImpl")
 	private StaffDao staffDao ;
 
 	@Test
-	@Qualifier("staffDaoImpl")
 	public void test_getStaffById(){
 		Staff staff = staffDao.getStaffById("1");
 		logger.info(JSON.toJSON(staff));
 	}
+	
+	@Test
+	public void test_updateStaff(){
+		Staff staff = staffDao.getStaffById("1");
+		staff.setLastUpdate(new java.util.Date());
+		staffDao.updateStaff(staff);
+	}
+	
 }
