@@ -2,12 +2,15 @@ package com.boyz.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +41,7 @@ public class StaffDaoImpl implements StaffDao {
 					staff.setEmail(arg0.getString("email"));
 					staff.setFirstName(arg0.getString("first_name"));
 					staff.setLastName(arg0.getString("last_name"));
-					staff.setLastUpdate(arg0.getDate("last_update"));
+					staff.setLastUpdate(arg0.getTimestamp("last_update"));
 					staff.setPassword(arg0.getString("password"));
 					staff.setPicture(arg0.getBytes("picture"));
 					staff.setStaffId(arg0.getString("staff_id"));
@@ -50,8 +53,38 @@ public class StaffDaoImpl implements StaffDao {
 		});
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)
 	public Staff updateStaff(Staff staff) {
+		// TODO Auto-generated method stub
+		String sql = "update staff set last_update = ? where staff_id = ?";
+		int cnt = this.jdbcTemplate.update(sql, new Object[]{staff.getLastUpdate(),staff.getStaffId()});
+		return staff;
+	}
+
+	public List<Staff> getStaffs() {
+		// TODO Auto-generated method stub
+		String sql = "select * from staff";
+		return this.jdbcTemplate.query(sql,new RowMapper<Staff>(){
+			public Staff mapRow(ResultSet arg0, int rowNum) throws SQLException {
+				// TODO Auto-generated method stub
+				Staff staff = new Staff();
+				staff.setActive(arg0.getBoolean("active"));
+				staff.setAddressId(arg0.getString("address_id"));
+				staff.setEmail(arg0.getString("email"));
+				staff.setFirstName(arg0.getString("first_name"));
+				staff.setLastName(arg0.getString("last_name"));
+				staff.setLastUpdate(arg0.getTimestamp("last_update"));
+				staff.setPassword(arg0.getString("password"));
+				staff.setPicture(arg0.getBytes("picture"));
+				staff.setStaffId(arg0.getString("staff_id"));
+				staff.setStoreId(arg0.getString("store_id"));
+				staff.setUsername(arg0.getString("username"));
+				return staff;
+			}
+		});
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public Staff updateStaffWithTransactional(Staff staff) {
 		// TODO Auto-generated method stub
 		String sql_1 = "update staff set last_update = ? where staff_id = ?";
 		int cnt_1 = this.jdbcTemplate.update(sql_1, new Object[]{staff.getLastUpdate(),staff.getStaffId()});
@@ -67,6 +100,7 @@ public class StaffDaoImpl implements StaffDao {
 		if( cnt_2 != 1 ){
 			throw new RuntimeException(sql_2 + " cnt is not equal 1.");
 		}
+		
 		return staff;
 	}
 }
