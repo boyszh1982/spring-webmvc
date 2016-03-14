@@ -4,12 +4,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+	<!-- 自定义上传进度条 -->
+	<bean id="multipartResolver" class="com.boyz.controller.CustomProgressMultipartResolver">
 		<!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
 		<!-- <property name="maxUploadSize" value="200000" /> -->
-		<property name="maxUploadSize" value="2" />
+		<property name="maxUploadSize" value="9000000000" />
+		<property name="customProgressListener" ref="customProgressListener"></property>
 	</bean>
+	<!-- 自定义Listener  -->
+	<bean id="customProgressListener" class="com.boyz.controller.CustomProgressListener"></bean>
 
 	<!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
 	<!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->

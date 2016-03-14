@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -15,9 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.boyz.model.Staff;
 import com.boyz.service.StaffService;
 
@@ -55,8 +59,14 @@ public class UploadController {
 		return "upload/add";
 	}
 
+	/**
+	 * 为防止奇怪的错误，应将@RequestParam("${指定好变量名}")
+	 * @param mfile
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ModelAndView add(@RequestParam MultipartFile mfile, HttpServletRequest request) {
+	public ModelAndView add(@RequestParam("mfile") MultipartFile mfile, HttpServletRequest request) {
 		logger.info("add post .................................................. ");
 		if (mfile.isEmpty()) {
 			; // 文件空
@@ -90,6 +100,24 @@ public class UploadController {
 		//mav.setViewName("redirect:/UploadController/list.do");  // 测试redirect不能将参数staffs带入list
 		mav.setViewName("upload/list"); //测试forward可以将参数staffs带入list
 		return mav;
+	}
+	
+	/**
+	 * 获取进度条数据
+	 * 测试，@ResponseBody 为该方法返回只有BODY的内容，如JSON\XML等需要回调的数据。
+	 * 该方法在上传文件时才会返回数据？不上传时返回空？
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getProgress" , method=RequestMethod.GET)
+	public String getProgress(HttpServletRequest request , HttpServletResponse response ){
+		HttpSession session = request.getSession();
+		JSONObject json = (JSONObject)session.getAttribute(CustomProgressListener.UPLOAD_PROGRESS_SESSION);
+		if(json == null){
+			return "";
+		}
+		else{
+			return json.toString();
+		}
 	}
 
 }

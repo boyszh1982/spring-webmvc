@@ -16,7 +16,10 @@ public class ControllerInterceptor {
 	private static final Logger logger = Logger
 			.getLogger(ControllerInterceptor.class);
 
-	@Pointcut("execution(* com.boyz.controller.*.*(..))")
+	/*
+	 * 如果拦截器拦截Listener类，则上传会非常慢哦。
+	 */
+	@Pointcut("execution(* com.boyz.controller.*Controller.*(..))")
 	public void everything() {
 	}
 
