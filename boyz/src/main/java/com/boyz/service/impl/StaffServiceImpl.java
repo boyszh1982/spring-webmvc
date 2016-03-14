@@ -22,7 +22,7 @@ public class StaffServiceImpl implements StaffService {
 	@Qualifier("staffDaoImpl")
 	private StaffDao staffDao ;
 	
-	@Cacheable(value="staffCache"  )
+	@Cacheable(value="staffCache")
 	public Staff getStaffById(String staffId) {
 		// TODO Auto-generated method stub
 		logger.info("....................... getStaffById="+staffId);
