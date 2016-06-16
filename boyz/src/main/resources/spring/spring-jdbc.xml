@@ -21,6 +21,10 @@
 					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
 					<property name="name" value="staffCache" />
 				</bean>
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="onlineAppCache" />
+				</bean>
 			</set>
 		</property>
 	</bean>
@@ -30,6 +34,7 @@
 	<context:component-scan base-package="com.boyz.service"></context:component-scan>
 
 	<!-- 数据源 -->
+	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName">
@@ -45,7 +50,25 @@
 			<value>Lnyd*132</value>
 		</property>
 	</bean>
+ -->
 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<!-- <value>jdbc:oracle:thin:@192.168.169.14:1521:lnbi</value> -->
+			<value>jdbc:oracle:thin:@x.x.x.x:1521:bidw1</value>
+		</property>
+		<property name="username">
+			<value>x</value>
+		</property>
+		<property name="password">
+			<value>x</value>
+		</property>
+	</bean>
+ 
 	<!-- 配置jdbc模板类 -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>

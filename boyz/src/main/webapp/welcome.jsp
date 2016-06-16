@@ -2,6 +2,8 @@
 <html>
 <body>
 <h1>Index Page</h1>
-<a href="/boyz/StaffController/toIndex.do" > index </a>
+<a href="/boyz/StaffController/toIndex.do" > index </a><br/>
+<a href="/boyz/MSOfficeViewController/n000001/notice.do" > notice </a><br/>
+<a href="/boyz/OnlineController/show.do" > online </a><br/>
 </body>
 </html>

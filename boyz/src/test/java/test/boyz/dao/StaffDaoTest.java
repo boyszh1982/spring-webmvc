@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.boyz.model.Staff;
 import com.boyz.service.StaffService;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring/spring-jdbc.xml"})
 public class StaffDaoTest {
@@ -24,6 +25,11 @@ public class StaffDaoTest {
 	@Autowired
 	@Qualifier("staffServiceImpl")
 	private StaffService staffService ;
+	
+	@Test
+	public void test(){
+		;
+	}
 	
 	//@Test
 	public void test_getStaffById(){
@@ -89,7 +95,7 @@ public class StaffDaoTest {
 		logger.info("6."+JSON.toJSONStringWithDateFormat( staffService.getStaffById("2"), "yyyy-MM-dd HH:mm:ss"));
 	}
 	
-	@Test
+	//@Test
 	public void test_getStaffs(){
 		//1.首次查询，触发DB查询
 		List<Staff> staffList = staffService.getStaffs();

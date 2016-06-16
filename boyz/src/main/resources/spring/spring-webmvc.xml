@@ -28,9 +28,22 @@
 			value="org.springframework.web.servlet.view.JstlView"></property>
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
+		<!-- <property name="suffix" value=".jsp" /> 
+				因暂时需要同时支持.jsp ; .htm 部署多视图费劲，后期研究。现将.jsp去掉
+		 -->
 	</bean>
-	<mvc:resources location="/js/jquery-ui-1.11.4.custom/" mapping="/jquery/**" ></mvc:resources>
+	 
+	<mvc:resources location="/" mapping="/**/*.js"/>
+	<mvc:resources location="/" mapping="/**/*.css"/>
+	<mvc:resources location="/" mapping="/**/*.png"/>
+	<mvc:resources location="/" mapping="/**/*.gif"/>
+	<mvc:resources location="/" mapping="/**/*.html"/>
+	<mvc:resources location="/" mapping="/**/*.htm"/>
 	
+ 	<mvc:resources location="/online/fonts/" mapping="/online/fonts/**"/>
+ 	<mvc:resources location="/online/css/" mapping="/online/css/**"/>
+ 	<mvc:resources location="/online/img/" mapping="/online/img/**"/>
+ 	<mvc:resources location="/online/js/" mapping="/online/js/**"/>
 	
 	<!-- 在组建中通过@Value("#{paramsProperties['VALIDATE_XSS']}")初始化变量 -->
 	<bean id="paramsProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
